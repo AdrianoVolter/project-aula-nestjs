@@ -15,7 +15,7 @@ export class UserService {
     users: User[] = [];
 
     getUsers(): User[] {
-        return this.users;
+        return this.users 
     }
 
     addUser(newUser: User): User {
@@ -24,6 +24,16 @@ export class UserService {
         }
         this.users.push(newUser);
         return newUser;
+    }
+
+    patchUser(id: number ,userData: User): User {
+        const user = this.users.find(user => user.id === id);
+        if (!user) {
+            return null;
+        }
+        Object.assign(user, userData);
+        return user;
+
     }
 
 }
