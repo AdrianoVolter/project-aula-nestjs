@@ -1,20 +1,29 @@
 import { Injectable } from '@nestjs/common';
 
+export type User = {
+    id?: number;
+    name: string;
+    age: number;
+    uf: string;
+};
+
+
 @Injectable()
 export class UserService {
-    getUsers(): object[] {
-        return [{
-            id: 1,
-            name: 'John Doe',
-            email: 'john@gmail.com',
-        }];
+
+    nexId: number = 1;
+    users: User[] = [];
+
+    getUsers(): User[] {
+        return this.users;
     }
 
-    addUser(): object {
-        return [{
-            id: 2,
-            name: 'Maria',
-            email: 'maria@gmail.com',
-        }]  
+    addUser(newUser: User): User {
+        if (!newUser.id) {
+            newUser.id = this.nexId++;
+        }
+        this.users.push(newUser);
+        return newUser;
     }
+
 }
